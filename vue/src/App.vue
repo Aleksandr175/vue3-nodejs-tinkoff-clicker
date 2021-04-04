@@ -2,22 +2,31 @@
   <div class="app">
     <img alt="Vue logo" src="./assets/logo.png" width="100">
 
-    <div>Курс: <span>1 USD : 75 RUB</span></div>
-    <div>Баланс: <span>123.33 USD</span></div>
+    <div>Курс: <span>1 USD : {{ rateRubUSD }} RUB</span></div>
+    <div>Баланс: <span>{{ balance }} {{ currency }}</span></div>
 
     <div>
-      <button class="btn">Поменять</button>
+      <button class="btn" @click="exchange()">Поменять</button>
     </div>
   </div>
 </template>
 
 <script>
+import useAppLogic from "@/composables/useAppLogic";
+
 export default {
   name: 'App',
   components: {
   },
   setup() {
-    console.log('Vue setup');
+    const { balance, rateRubUSD, exchange, currency } = useAppLogic();
+    
+    return {
+      balance,
+      rateRubUSD,
+      exchange,
+      currency
+    }
   }
 }
 </script>
