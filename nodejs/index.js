@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const fs = require('fs');
 
 app.use(cors());
 
@@ -9,7 +10,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/rate', (req, res) => {
-  res.send({ rate: 10 });
+  fs.readFile('usd.txt', 'utf8', (err, rate) => {
+    res.send({ rate });
+  });
 });
 
 app.listen(4000, () => {

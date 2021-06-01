@@ -21,10 +21,29 @@ export default function useAppLogic() {
     console.log('exchange');
   }
 
+  const getRate = () => {
+    axios.get('http://localhost:4000/rate').then((response) => {
+      rateRubUSD.value = response.data.rate;
+    });
+  }
+
+  setInterval(() => {
+    getRate();
+  }, 1000);
+
+  const earn = () => {
+    if (currency.value === 'RUB') {
+      balance.value += 100;
+    } else {
+      balance.value = balance.value + 100 / rateRubUSD.value;
+    }
+  }
+
   return {
     balance,
     currency,
     rateRubUSD,
-    exchange
+    exchange,
+    earn
   }
 }
